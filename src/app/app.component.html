@@ -1,0 +1,130 @@
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">{{title}}</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">JavaScript</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col l2">
+    <div class="collection">
+      <a (click)="getProjects()" class="collection-item">Backlogs</a>
+      <div class="collection" [hidden]="visibleBacklogs">
+        <div *ngFor="let project of projects" class="collection-item">
+          <a (click)="showSprint(project)"><i class="material-icons">play_arrow</i>{{project.name}}</a>
+          <div class="collection" [hidden]="visibleSprint">
+            <a *ngFor="let sprint of project.sprints" class="collection-item"><i class="material-icons">play_arrow</i>{{sprint.name}}</a>
+          </div>
+        </div>
+      </div>
+      <a class="collection-item">Item2</a>
+    </div>
+  </div>
+  <div class="col l4">
+    <p style="color:red">{{error}}</p>
+    <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <table class="striped">
+      <thead>
+      <tr>
+        <th data-field="status">Status</th>
+        <th data-field="title">Title</th>
+        <th data-field="priority">Priority</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let story of stories" (click)="showStory(story)">
+        <td>{{story.status}}</td>
+        <td>{{story.title}}</td>
+        <td>{{story.priority}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col l6" [hidden]="visibleStory">
+    <div class="details">
+      <h3>#{{story.id}} - {{story.title}}</h3>
+      <strong>Want: </strong>{{story.want}}<br/>
+      <strong>So That: </strong>{{story.so_that}}
+      <div class="row">
+        <i class="fa fa-asterisk" aria-hidden="true"></i> {{story.priority}}
+        <i class="fa fa-legal" aria-hidden="true"></i> {{story.status}}
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{story.start_date | date}}
+        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> {{story.due_date | date}}
+      </div>
+
+    </div>
+    <div id="task" style="background-color: #F0F0EE">
+      <strong>Task</strong>
+      <form>
+        <div class="row">
+          <input class="input-field col s10" placeholder="Add New Task">
+          <button class="input-field col s2 waves-effect waves-light btn" type="submit" name="action">
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+      </form>
+      <ul *ngFor="let task of story.task">
+        <form><input class="with-gap" name="group3" type="radio" id="test5" value="{{task.status}}"/>{{task.decription}}
+        </form>
+      </ul>
+    </div>
+    <div id="Effort">
+      <strong>Effort</strong>
+      <form>
+        <div class="row">
+          <div class="input-field col l3">
+            <select class="browser-default">
+              <option value="" disabled selected>...</option>
+              <option value="1">1h</option>
+              <option value="2">2h</option>
+              <option value="4">4h</option>
+              <option value="8">8h</option>
+              <option value="16">16h</option>
+            </select>
+          </div>
+          <div class="input-field col l7">
+            <input type="date" class="datepicker">
+          </div>
+            <button class="input-field col l2 waves-effect waves-light btn" type="submit" name="action">
+              <i class="material-icons">add</i>
+            </button>
+        </div>
+      </form>
+      <ul *ngFor="let effort of story.efforts">
+        <li>
+          <form>
+            {{effort.effort}}{{effort.date | date}}
+          </form>
+        </li>
+      </ul>
+    </div>
+    <div id="comment" style="background-color: #F0F0EE">
+      <strong>Comments</strong>
+      <form>
+        <div class="row">
+
+          <div class="input-field col s10" >
+             <textarea placeholder="Add New Comment" type="text" length="1000"></textarea>
+          </div>
+          <button class="input-field col s2 waves-effect waves-light btn" type="submit" name="action">
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+      </form>
+      <ul *ngFor="let comment of story.comments">
+        <form>
+          <input class="with-gap" name="group3" type="radio" id="test5" length="1000" value="{{task.status}}"/>{{task.decription}}
+        </form>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+</script>
