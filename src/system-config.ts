@@ -9,10 +9,15 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  'ng2-inline-editor':'vendor/ng2-inline-editor/dist'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  'vendor/ng2-inline-editor/dist': {
+    defaultExtension: 'js',
+    main: 'index.js'
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +37,7 @@ const barrels: string[] = [
 
   // Thirdparty barrels.
   'rxjs',
+  'ng2-inline-editor',
 
   // App specific barrels.
   'app',

@@ -5,7 +5,7 @@ import 'rxjs/Rx'
 @Injectable()
 export class ProjectService{
 
-  endpoint_url:String = "http://localhost/scrum-app/web/app_dev.php/api/project/index";
+  endpoint_url:String = "http://localhost/scrum-backend/web/app_dev.php/api/project/index";
   http;
   constructor(http: Http){
     this.http = http;
@@ -19,7 +19,7 @@ export class ProjectService{
 @Injectable()
 export class StoryService{
 
-  endpoint_url:String = "http://localhost/scrum-app/web/app_dev.php/api/story/index";
+  endpoint_url:String = "http://localhost/scrum-backend/web/app_dev.php/api/story/index";
   http;
   constructor(http: Http){
     this.http = http;

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ProjectService} from './project.service';
 import {StoryService} from './project.service';
-
+import { InlineEditorDirectives} from 'ng2-inline-editor';
 
 @Component({
   moduleId: module.id,
@@ -9,6 +9,7 @@ import {StoryService} from './project.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   providers: [ProjectService, StoryService],
+  directives: [InlineEditorDirectives],
 })
 
 export class AppComponent {
@@ -20,6 +21,24 @@ export class AppComponent {
   visibleBacklogs: boolean = true;
   visibleSprint: boolean = true;
   visibleStory: boolean = true;
+  prioritySelectOptions = [
+    { value: 1, text: '1' },
+    { value: 2, text: '2' },
+    { value: 3, text: '3' },
+    { value: 4, text: '4' },
+    { value: 5, text: '5' }
+  ];
+
+  statusOptions = [
+    { value: 1, text: '1' },
+    { value: 2, text: '2' },
+    { value: 3, text: '3' },
+    { value: 4, text: '4' },
+    { value: 5, text: '5' }
+
+  ];
+
+
 
   constructor(private projectService: ProjectService, private storyService: StoryService) {
     this.projectService = projectService;
@@ -71,5 +90,13 @@ export class AppComponent {
         error => this.error = 'No se encontraron historias de usuario'
       );
   }
+
+  saveEditable(value) {
+    //call to http server
+    console.log('http.server: ' + value);
+
+  }
+
+
 }
 

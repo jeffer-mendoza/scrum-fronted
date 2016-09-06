@@ -27,7 +27,7 @@
   <div class="col l4">
     <p style="color:red">{{error}}</p>
     <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a>
-    <table class="striped">
+    <table class="striped responsive-table">
       <thead>
       <tr>
         <th data-field="status">Status</th>
@@ -46,15 +46,16 @@
     </table>
   </div>
   <div class="col l6" [hidden]="visibleStory">
+    <!--<inline-editor type="textarea" [(ngModel)]="editableTextArea" (onSave)="saveEditable($event)" value="valor"> </inline-editor>-->
     <div class="details">
       <h3>#{{story.id}} - {{story.title}}</h3>
-      <strong>Want: </strong>{{story.want}}<br/>
-      <strong>So That: </strong>{{story.so_that}}
+      <strong>Want: </strong> <inline-editor type="text" [(ngModel)]="story.want" (onSave)="saveEditable($event)" value="valor"> </inline-editor><br/>
+      <strong>So That: </strong><inline-editor type="text" [(ngModel)]="story.so_that" (onSave)="saveEditable($event)" value="valor"> </inline-editor><br/>
       <div class="row">
-        <i class="fa fa-asterisk" aria-hidden="true"></i> {{story.priority}}
-        <i class="fa fa-legal" aria-hidden="true"></i> {{story.status}}
-        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{story.start_date | date}}
-        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> {{story.due_date | date}}
+        <i class="fa fa-asterisk" aria-hidden="true"></i><inline-editor type="select" [(ngModel)]="story.priority" (onSave)="saveEditable($event)" [options]="prioritySelectOptions"></inline-editor>
+        <i class="fa fa-legal" aria-hidden="true"></i><inline-editor type="select" [(ngModel)]="story.status" (onSave)="saveEditable($event)" [options]="statusOptions"> </inline-editor>
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>  {{story.start_date | date}}
+        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i><inline-editor type="date" class="datepicker"[(ngModel)]="story.due_date" (onsave)="saveEditable($event)"></inline-editor>
       </div>
 
     </div>
