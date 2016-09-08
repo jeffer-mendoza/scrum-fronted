@@ -1,14 +1,15 @@
 import {Component} from '@angular/core';
-import {ProjectService} from './project.service';
+import {ProjectService, StoryServiceManager} from './project.service';
 import {StoryService} from './project.service';
 import { InlineEditorDirectives} from 'ng2-inline-editor';
+import {FormControl} from "@angular/forms";
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  providers: [ProjectService, StoryService],
+  providers: [ProjectService, StoryService, StoryServiceManager],
   directives: [InlineEditorDirectives],
 })
 
@@ -35,14 +36,13 @@ export class AppComponent {
     { value: 3, text: '3' },
     { value: 4, text: '4' },
     { value: 5, text: '5' }
-
   ];
 
 
-
-  constructor(private projectService: ProjectService, private storyService: StoryService) {
+  constructor(private projectService: ProjectService, private storyService: StoryService, private storyServicemanager: StoryServiceManager) {
     this.projectService = projectService;
     this.storyService = storyService;
+    this.storyServicemanager = storyServicemanager;
   }
 
   getProjects() {
@@ -91,12 +91,18 @@ export class AppComponent {
       );
   }
 
-  saveEditable(value) {
-    //call to http server
-    console.log('http.server: ' + value);
+  addTask(story){
 
+    var tsk = <HTMLDivElement> <any> document.getElementById("taski");
+    story.task.push(tsk.textContent);
+    console.log(story);
   }
 
+  saveEditable(value) {
+
+     this.storyServicemanager.saveStory(this.story).map();
+
+  }
 
 }
 

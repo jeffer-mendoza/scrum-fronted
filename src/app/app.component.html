@@ -54,7 +54,7 @@
       <div class="row">
         <i class="fa fa-asterisk" aria-hidden="true"></i><inline-editor type="select" [(ngModel)]="story.priority" (onSave)="saveEditable($event)" [options]="prioritySelectOptions"></inline-editor>
         <i class="fa fa-legal" aria-hidden="true"></i><inline-editor type="select" [(ngModel)]="story.status" (onSave)="saveEditable($event)" [options]="statusOptions"> </inline-editor>
-        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>  {{story.start_date | date}}
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i><inline-editor type="date" class="datepicker"[(ngModel)]="story.start_date" (onsave)="saveEditable($event)"></inline-editor>
         <i class="fa fa-calendar-minus-o" aria-hidden="true"></i><inline-editor type="date" class="datepicker"[(ngModel)]="story.due_date" (onsave)="saveEditable($event)"></inline-editor>
       </div>
 
@@ -63,15 +63,16 @@
       <strong>Task</strong>
       <form>
         <div class="row">
-          <input class="input-field col s10" placeholder="Add New Task">
-          <button class="input-field col s2 waves-effect waves-light btn" type="submit" name="action">
+          <input class="input-field col s10" type="text" id="taski" placeholder="Add New Task">
+          <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action" (click)="addTask(story)">
             <i class="material-icons">add</i>
           </button>
         </div>
       </form>
       <ul *ngFor="let task of story.task">
-        <form><input class="with-gap" name="group3" type="radio" id="test5" value="{{task.status}}"/>{{task.decription}}
-        </form>
+        <li>
+          <input class="with-gap" name="group3" type="radio" id="test5" value="{{task.status}}"/>{{task.decription}}
+        </li>
       </ul>
     </div>
     <div id="Effort">
@@ -91,7 +92,7 @@
           <div class="input-field col l7">
             <input type="date" class="datepicker">
           </div>
-            <button class="input-field col l2 waves-effect waves-light btn" type="submit" name="action">
+            <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action">
               <i class="material-icons">add</i>
             </button>
         </div>
@@ -112,7 +113,7 @@
           <div class="input-field col s10" >
              <textarea placeholder="Add New Comment" type="text" length="1000"></textarea>
           </div>
-          <button class="input-field col s2 waves-effect waves-light btn" type="submit" name="action">
+          <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action">
             <i class="material-icons">add</i>
           </button>
         </div>
