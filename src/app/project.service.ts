@@ -6,7 +6,7 @@ import { Headers, RequestOptions, Response} from '@angular/http';
 @Injectable()
 export class ProjectService{
 
-  endpoint_url:String = "http://localhost/scrum-backend/web/app_dev.php/api/project/index";
+  endpoint_url:String = "http://localhost/scrum-app/web/app.php/api/project/index";
   http;
   constructor(http: Http){
     this.http = http;
@@ -19,7 +19,7 @@ export class ProjectService{
 
 @Injectable()
 export class StoryService{
-  endpoint_url:String = "http://localhost/scrum-backend/web/app_dev.php/api/story/index";
+  endpoint_url:String = "http://localhost/scrum-app/web/app.php/api/story/index";
   http;
   constructor(http: Http){
     this.http = http;
@@ -39,12 +39,15 @@ export class StoryServiceManager{
   }
 
   saveStory (story){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({ 'Accept': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("dfsd");
-    return this.http.post("http://localhost/scrum-backend/web/app_dev.php/api/story/index", story, headers)
-      .subscribe(data => {alert('ok');}, error => { console.log(error)})
-      .map((res:Response)=> res.json());
+    let body = JSON.stringify(story);
+    return this.http.post("http://localhost/scrum-app/web/app.php/api/story/index", body, options)
+      .map(response => response.json())
+      .subscribe(
+        console.log('Authentication Complete')
+      );
   }
 }
 

@@ -46,16 +46,32 @@
     </table>
   </div>
   <div class="col l6" [hidden]="visibleStory">
-    <!--<inline-editor type="textarea" [(ngModel)]="editableTextArea" (onSave)="saveEditable($event)" value="valor"> </inline-editor>-->
-    <div class="details">
-      <h3>#{{story.id}} - {{story.title}}</h3>
-      <strong>Want: </strong> <inline-editor type="text" [(ngModel)]="story.want" (onSave)="saveEditable($event)" value="valor"> </inline-editor><br/>
-      <strong>So That: </strong><inline-editor type="text" [(ngModel)]="story.so_that" (onSave)="saveEditable($event)" value="valor"> </inline-editor><br/>
+    <div class="row details">
       <div class="row">
-        <i class="fa fa-asterisk" aria-hidden="true"></i><inline-editor type="select" [(ngModel)]="story.priority" (onSave)="saveEditable($event)" [options]="prioritySelectOptions"></inline-editor>
-        <i class="fa fa-legal" aria-hidden="true"></i><inline-editor type="select" [(ngModel)]="story.status" (onSave)="saveEditable($event)" [options]="statusOptions"> </inline-editor>
-        <i class="fa fa-calendar-check-o" aria-hidden="true"></i><inline-editor type="date" class="datepicker"[(ngModel)]="story.start_date" (onsave)="saveEditable($event)"></inline-editor>
-        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i><inline-editor type="date" class="datepicker"[(ngModel)]="story.due_date" (onsave)="saveEditable($event)"></inline-editor>
+        <h3>#{{story.id}} -
+        <inline-editor type="text" [(ngModel)]="story.title" (onSave)="saveEditable($event)" size="100" disabled="true"
+                       min="1" max="100"></inline-editor></h3>
+      </div>
+      <strong>Want: </strong>
+      <inline-editor type="textarea" [(ngModel)]="story.want" (onSave)="saveEditable($event)" size="255" disabled="true"
+                     cols="100" rows="8" min="1" max="255"></inline-editor>
+      <br/>
+      <strong>So That: </strong>
+      <inline-editor type="textarea" [(ngModel)]="story.so_that" (onSave)="saveEditable($event)" size="255"
+                     disabled="true" cols="50" rows="8" min="1" max="255"></inline-editor>
+      <div class="row">
+        <i class="fa fa-asterisk" aria-hidden="true"></i>
+        <inline-editor type="select" [(ngModel)]="story.priority" (onSave)="saveEditable($event)"
+                       [options]="prioritySelectOptions"></inline-editor>
+        <i class="fa fa-legal" aria-hidden="true"></i>
+        <inline-editor type="select" [(ngModel)]="story.status" (onSave)="saveEditable($event)"
+                       [options]="statusOptions"></inline-editor>
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+        <inline-editor type="date" class="datepicker" [(ngModel)]="story.start_date"
+                       (onsave)="saveEditable($event)"></inline-editor>
+        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+        <inline-editor type="date" class="datepicker" [(ngModel)]="story.due_date"
+                       (onsave)="saveEditable($event)"></inline-editor>
       </div>
 
     </div>
@@ -64,7 +80,8 @@
       <form>
         <div class="row">
           <input class="input-field col s10" type="text" id="taski" placeholder="Add New Task">
-          <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action" (click)="addTask(story)">
+          <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action"
+                  (click)="addTask(story)">
             <i class="material-icons">add</i>
           </button>
         </div>
@@ -92,9 +109,9 @@
           <div class="input-field col l7">
             <input type="date" class="datepicker">
           </div>
-            <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action">
-              <i class="material-icons">add</i>
-            </button>
+          <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action">
+            <i class="material-icons">add</i>
+          </button>
         </div>
       </form>
       <ul *ngFor="let effort of story.efforts">
@@ -110,8 +127,8 @@
       <form>
         <div class="row">
 
-          <div class="input-field col s10" >
-             <textarea placeholder="Add New Comment" type="text" length="1000"></textarea>
+          <div class="input-field col s10">
+            <textarea placeholder="Add New Comment" type="text" length="1000"></textarea>
           </div>
           <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action">
             <i class="material-icons">add</i>

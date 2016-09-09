@@ -100,7 +100,7 @@ export class AppComponent {
 
   saveEditable(value) {
 
-     this.storyServicemanager.saveStory(this.story).map();
+     this.storyServicemanager.saveStory(this.story);
 
   }
 
