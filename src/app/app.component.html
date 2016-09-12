@@ -9,6 +9,8 @@
   </div>
 </nav>
 
+<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
+
 <div class="row">
   <div class="col l2">
     <div class="collection">
@@ -75,9 +77,27 @@
       </div>
 
     </div>
+
+    <div id="acceptance" style="background-color: #F0F0EE">
+      <strong>Acceptance Requirements</strong>
+
+      <div class="row">
+        <input class="input-field col s10" type="text" id="acceptance_requirements" placeholder="Add New Acceptance Requirements">
+        <button class="btn-floating btn-large waves-effect waves-light" name="action" (click)="addAcceptanceReq(story)">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+
+      <ul *ngFor="let accep of story.acceptance_requirements">
+        <li>
+          <input type="checkbox" class="filled-in" id="accep-in-box" checked="{{accep.status}}" />
+          <label for="accep-in-box">{{accep.description}}</label>
+        </li>
+      </ul>
+    </div>
+
     <div id="task" style="background-color: #F0F0EE">
       <strong>Task</strong>
-
         <div class="row">
           <input class="input-field col s10" type="text" id="taski" placeholder="Add New Task">
           <button class="btn-floating btn-large waves-effect waves-light" name="action" (click)="addTask(story)">
@@ -87,7 +107,8 @@
 
       <ul *ngFor="let task of story.task">
         <li>
-          <input class="with-gap" name="group3" type="radio" id="test5" value="{{task.status}}"/>{{task.decription}}
+          <input type="checkbox" class="filled-in" id="task-in-box" checked="{{task.status}}" />
+          <label for="task-in-box">{{task.description}}</label>
         </li>
       </ul>
     </div>
@@ -112,12 +133,12 @@
           </button>
         </div>
 
-      <ul *ngFor="let effort of story.efforts">
+      <ul *ngFor="let effort of story.spend_efforts">
+
         <li>
-          <form>
-            {{effort.effort}}{{effort.date | date}}
-          </form>
+            <P>Date: {{effort.date}} - Hours: {{effort.hours}}</P>
         </li>
+
       </ul>
     </div>
     <div id="comment" style="background-color: #F0F0EE">
@@ -132,7 +153,7 @@
         </div>
       <ul *ngFor="let comment of story.comments">
         <form>
-          <input class="with-gap" name="group3" type="radio" id="test5" length="1000" value="{{task.status}}"/>{{task.decription}}
+          <input class="with-gap" name="group3" length="1000" />{{comment.description}}
         </form>
       </ul>
     </div>
@@ -140,5 +161,4 @@
   </div>
 </div>
 
-<script>
-</script>
+

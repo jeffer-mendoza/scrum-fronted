@@ -91,24 +91,37 @@ export class AppComponent {
       );
   }
 
+  addAcceptanceReq(story){
+    var acceptancetext = (<HTMLInputElement>document.getElementById("acceptance_requirements"));
+    story.acceptance_requirements.push({"status": "","description":acceptancetext.value});
+    acceptancetext.value = "";
+    console.log(story);
+  }
+
   addTask(story){
     //forma de obtener la información de un input en Typescript
-    var tsk = (<HTMLInputElement>document.getElementById("taski")).value;
-    story.task.push(tsk);
-    this.storyServicemanager.saveStory(story);
+    var tasktext = (<HTMLInputElement>document.getElementById("taski"));
+    story.task.push({"status": "","description":tasktext.value});
+    // this.storyServicemanager.saveStory(story);
+    tasktext.value = "";
     console.log(story);
   }
 
   addEffort(story){
-    var effortdate = (<HTMLInputElement>document.getElementById("effort-date")).value;
-    var efforthours = (<HTMLInputElement>document.getElementById(("effort-hours"))).value;
-    story.spend_efforts.push({hours:efforthours, date:effortdate});
+    var effortdate = (<HTMLInputElement>document.getElementById("effort-date"));
+    var efforthours = (<HTMLInputElement>document.getElementById(("effort-hours")));
+    story.spend_efforts.push({hours:efforthours.value, date:effortdate.value});
+
+    effortdate.value = "";
+    efforthours.value = "";
     console.log(story);
   }
 
   addComments(story){
-    var commenttext = (<HTMLInputElement>document.getElementById("comment-text")).value;
-    story.comments.push(commenttext);
+    var commenttext = (<HTMLInputElement>document.getElementById("comment-text"));
+    story.comments.push({"description":commenttext.value});
+    commenttext.value = "";
+
     console.log(story);
   }
 
