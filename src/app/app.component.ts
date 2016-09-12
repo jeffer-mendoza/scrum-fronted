@@ -92,14 +92,27 @@ export class AppComponent {
   }
 
   addTask(story){
+    //forma de obtener la información de un input en Typescript
+    var tsk = (<HTMLInputElement>document.getElementById("taski")).value;
+    story.task.push(tsk);
+    this.storyServicemanager.saveStory(story);
+    console.log(story);
+  }
 
-    var tsk = <HTMLDivElement> <any> document.getElementById("taski");
-    story.task.push(tsk.textContent);
+  addEffort(story){
+    var effortdate = (<HTMLInputElement>document.getElementById("effort-date")).value;
+    var efforthours = (<HTMLInputElement>document.getElementById(("effort-hours"))).value;
+    story.spend_efforts.push({hours:efforthours, date:effortdate});
+    console.log(story);
+  }
+
+  addComments(story){
+    var commenttext = (<HTMLInputElement>document.getElementById("comment-text")).value;
+    story.comments.push(commenttext);
     console.log(story);
   }
 
   saveEditable(value) {
-
      this.storyServicemanager.saveStory(this.story);
 
   }
