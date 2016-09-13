@@ -139,12 +139,18 @@ export class AppComponent {
     var titlestorytext = (<HTMLInputElement>document.getElementById("title_story_text"));
     var wantstorytext = (<HTMLInputElement>document.getElementById("want_story_text"));
     var sothatstorytext = (<HTMLInputElement>document.getElementById("so_that_story_text"));
-
-    var date = new Date;
-
-    this.project.stories.push({id:2,title:titlestorytext.value,want:wantstorytext.value,so_that:sothatstorytext.value,priority:1,status:1,effort:1,start_date:date.toDateString(),due_date:date.toDateString(),task:[],comments:[],spend_efforts:[],acceptance_requirements:[]});
+    var dateestart = (<HTMLInputElement>document.getElementById("start_date"));
+    var datedue = (<HTMLInputElement>document.getElementById("due_date"));
+    this.project.stories.push({title:titlestorytext.value,want:wantstorytext.value,so_that:sothatstorytext.value,priority:1,status:1,effort:1,start_date:dateestart.value,due_date:datedue.value,task:[],comments:[],spend_efforts:[],acceptance_requirements:[]});
 
     console.log(this.project);
+
+    titlestorytext.value = "";
+    wantstorytext.value = "";
+    sothatstorytext.value = "";
+    dateestart.value = "";
+    datedue.value = "";
+
   }
 
   saveEditable(value) {

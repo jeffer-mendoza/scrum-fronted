@@ -201,7 +201,16 @@
             <option value="16">16h</option>
           </select>
         </div>
+        <div class="input-field col s4">
+          <label for="start_date">Start Date</label>
+          <input id="start_date" materialize="pickadate" [materializeParams]="[{selectMonths: true, selectYears: 15}]" type="text" />
+        </div>
+        <div class="input-field col s4">
+          <label for="due_date">Due Date</label>
+          <input id="due_date" materialize="pickadate" [materializeParams]="[{selectMonths: true, selectYears: 15}]" type="text" />
+        </div>
       </div>
+
 
       <button class="btn waves-effect waves-light" (click)="addCreateStory()" name="action">Create Story
         <i class="material-icons right">send</i>
