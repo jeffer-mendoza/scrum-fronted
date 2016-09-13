@@ -1,0 +1,214 @@
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">{{title}}</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">JavaScript</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col l2">
+    <div class="collection">
+      <a (click)="getProjects()" class="collection-item">Backlogs</a>
+      <div class="collection" [hidden]="visibleBacklogs">
+        <div *ngFor="let project of projects" class="collection-item">
+          <a (click)="showSprint(project)"><i class="material-icons">play_arrow</i>{{project.name}}</a>
+          <div class="collection" [hidden]="visibleSprint">
+            <a *ngFor="let sprint of project.sprints" class="collection-item"><i class="material-icons">play_arrow</i>{{sprint.name}}</a>
+          </div>
+        </div>
+      </div>
+      <a class="collection-item">Item2</a>
+    </div>
+  </div>
+  <div class="col l4">
+    <p style="color:red">{{error}}</p>
+    <a class="btn-floating btn-small waves-effect waves-light red" (click)="showCreateStory()"><i
+      class="material-icons">add</i></a>
+    <table class="striped responsive-table">
+      <thead>
+      <tr>
+        <th data-field="status">Status</th>
+        <th data-field="title">Title</th>
+        <th data-field="priority">Priority</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let story of stories" (click)="showStory(story)">
+        <td>{{story.status}}</td>
+        <td>{{story.title}}</td>
+        <td>{{story.priority}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col l6" [hidden]="visibleStory">
+    <div class="row details">
+      <div class="row">
+        <h3>#{{story.id}} -
+          <inline-editor type="text" [(ngModel)]="story.title" (onSave)="saveEditable($event)" size="100"
+                         min="1" max="100"></inline-editor>
+        </h3>
+      </div>
+      <strong>Want: </strong>
+      <inline-editor type="textarea" [(ngModel)]="story.want" (onSave)="saveEditable($event)" size="255"
+                     cols="100" rows="8" min="1" max="255"></inline-editor>
+      <br/>
+      <strong>So That: </strong>
+      <inline-editor type="textarea" [(ngModel)]="story.so_that" (onSave)="saveEditable($event)" size="255"
+                     cols="50" rows="8" min="1" max="255"></inline-editor>
+      <div class="row">
+        <i class="fa fa-asterisk" aria-hidden="true"></i>
+        <inline-editor type="select" [(ngModel)]="story.priority" (onSave)="saveEditable($event)"
+                       [options]="prioritySelectOptions"></inline-editor>
+        <i class="fa fa-legal" aria-hidden="true"></i>
+        <inline-editor type="select" [(ngModel)]="story.status" (onSave)="saveEditable($event)"
+                       [options]="statusOptions"></inline-editor>
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+        <inline-editor type="date" class="datepicker" [(ngModel)]="story.start_date"
+                       (onsave)="saveEditable($event)"></inline-editor>
+        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+        <inline-editor type="date" class="datepicker" [(ngModel)]="story.due_date"
+                       (onsave)="saveEditable($event)"></inline-editor>
+      </div>
+
+    </div>
+
+    <div id="acceptance" style="background-color: #F0F0EE">
+      <strong>Acceptance Requirements</strong>
+
+      <div class="row">
+        <input class="input-field col s10" type="text" id="acceptance_requirements"
+               placeholder="Add New Acceptance Requirements">
+        <button class="btn-floating btn-large waves-effect waves-light" name="action" (click)="addAcceptanceReq(story)">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+
+      <ul *ngFor="let accep of story.acceptance_requirements">
+        <li>
+          <input type="checkbox" class="filled-in" id="accep-in-box" checked="{{accep.status}}"/>
+          <label for="accep-in-box">{{accep.description}}</label>
+        </li>
+      </ul>
+    </div>
+
+    <div id="task" style="background-color: #F0F0EE">
+      <strong>Task</strong>
+      <div class="row">
+        <input class="input-field col s10" type="text" id="taski" placeholder="Add New Task">
+        <button class="btn-floating btn-large waves-effect waves-light" name="action" (click)="addTask(story)">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+
+      <ul *ngFor="let task of story.task">
+        <li>
+          <input type="checkbox" class="filled-in" id="task-in-box" checked="{{task.status}}"/>
+          <label for="task-in-box">{{task.description}}</label>
+        </li>
+      </ul>
+    </div>
+    <div id="Effort">
+      <strong>Effort</strong>
+      <div class="row">
+        <div class="input-field col l3">
+          <select class="browser-default" id="effort-hours">
+            <option value="" disabled selected>...</option>
+            <option value="1">1h</option>
+            <option value="2">2h</option>
+            <option value="4">4h</option>
+            <option value="8">8h</option>
+            <option value="16">16h</option>
+          </select>
+        </div>
+        <div class="input-field col l7">
+          <input type="date" class="datepicker" id="effort-date">
+        </div>
+        <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action"
+                (click)="addEffort(story)">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+
+      <ul *ngFor="let effort of story.spend_efforts">
+
+        <li>
+          <P>Date: {{effort.date}} - Hours: {{effort.hours}}</P>
+        </li>
+
+      </ul>
+    </div>
+    <div id="comment" style="background-color: #F0F0EE">
+      <strong>Comments</strong>
+      <div class="row">
+        <div class="input-field col s10">
+          <textarea placeholder="Add New Comment" type="text" id="comment-text" length="1000"></textarea>
+        </div>
+        <button class="btn-floating btn-large waves-effect waves-light" type="submit" name="action"
+                (click)="addComments(story)">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+      <ul *ngFor="let comment of story.comments">
+        <form>
+          <input class="with-gap" name="group3" length="1000"/>{{comment.description}}
+        </form>
+      </ul>
+    </div>
+
+  </div>
+
+  <!--Crear story-->
+  <div class="col l6" [hidden]="visibleCreateStory">
+    <div class="card-panel hoverable">
+      <h3 class="center-align">Create Story </h3>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">change_history</i>
+          <input id="title_story_text" type="text" class="validate">
+          <label for="title_story_text">Title Story</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">keyboard_arrow_right</i>
+          <input id="want_story_text" type="text" class="validate">
+          <label for="want_story_text">Want Story</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">keyboard_arrow_right</i>
+          <input id="so_that_story_text" type="text" class="validate">
+          <label for="so_that_story_text">So That Story</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col l4">
+          <select class="browser-default" id="effort-hours2">
+            <option value="" disabled selected>...</option>
+            <option value="1">1h</option>
+            <option value="2">2h</option>
+            <option value="4">4h</option>
+            <option value="8">8h</option>
+            <option value="16">16h</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn waves-effect waves-light" (click)="addCreateStory()" name="action">Create Story
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
